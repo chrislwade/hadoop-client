@@ -130,12 +130,7 @@ namespace HBase.Stargate.Client.TypeConversion
 				? Enumerable.Empty<Cell>()
 				: XElement.Parse(data).Elements(_rowName)
 					.SelectMany(row => row.Elements(_cellName))
-					.Select(CellForXml)
-					.Select(cell =>
-						{
-							cell.Identifier.Table = tableName;
-							return cell;
-						});
+					.Select(cell => CellForXml(cell, tableName));
 		}
 
 		/// <summary>
@@ -230,7 +225,7 @@ namespace HBase.Stargate.Client.TypeConversion
 			xml.Add(new XAttribute(name, valueExtractor(value)));
 		}
 
-		private Cell CellForXml(XElement cell)
+		private Cell CellForXml(XElement cell, string tableName)
 		{
 			XElement parent = cell.Parent;
 			if (parent == null)
@@ -253,6 +248,7 @@ namespace HBase.Stargate.Client.TypeConversion
 
 			return new Cell(new Identifier
 			{
+				Table = tableName,
 				Row = row,
 				CellDescriptor = new HBaseCellDescriptor
 				{
