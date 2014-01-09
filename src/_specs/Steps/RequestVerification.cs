@@ -99,15 +99,10 @@ namespace _specs.Steps
 			row.SingleOrDefault(cell => cell.Value == value).Should().NotBeNull();
 		}
 
-		[Then(@"one of the cells in the REST request should have had the following values:")]
+		[Then(@"(?:one of )?the cells in the REST request should have had the following values:")]
 		public void CheckAnyCellValues(Table values)
 		{
-			IEnumerable<Cell> row = GetRowFromRequest();
-			var expected = values.CreateInstance<TestCell>();
-			row.SingleOrDefault(cell => cell.Identifier.Row == expected.Row
-				&& cell.Identifier.CellDescriptor.Column == expected.Column
-				&& cell.Identifier.CellDescriptor.Qualifier == expected.Qualifier
-				&& cell.Value == expected.Value).Should().NotBeNull();
+			values.CompareToSet(GetRowFromRequest().Select(SimpleAssertions.ConvertToTestCell));
 		}
 
 		private IEnumerable<Cell> GetRowFromRequest()
@@ -116,7 +111,7 @@ namespace _specs.Steps
 				.Where(cell => cell.Type == ParameterType.RequestBody)
 				.Select(cell => cell.Value.ToString())
 				.FirstOrDefault();
-			IEnumerable<Cell> row = CreateRequestConverter(_rest.Request, _converterFactory).ConvertCells(content).ToArray();
+			IEnumerable<Cell> row = CreateRequestConverter(_rest.Request, _converterFactory).ConvertCells(content, string.Empty).ToArray();
 			row.Should().NotBeNull();
 			return row;
 		}

@@ -48,7 +48,7 @@ namespace _specs.Steps
 		[Given(@"I have a scanner for the ""(.*)"" table named ""(.*)""")]
 		public void ObtainManualScanner(string tableName, string scannerId)
 		{
-			_hBase.Scanner = new Scanner(string.Format("{0}/scanner/{1}", tableName, scannerId), _hBase.Stargate);
+			_hBase.Scanner = new Scanner(tableName, string.Format("{0}/scanner/{1}", tableName, scannerId), _hBase.Stargate);
 		}
 
 		[When(@"I delete the scanner")]

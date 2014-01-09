@@ -54,7 +54,8 @@ namespace HBase.Stargate.Client.TypeConversion
 		///    Converts the specified data to a set of cells according to the current MIME type.
 		/// </summary>
 		/// <param name="data">The data.</param>
-		IEnumerable<Cell> ConvertCells(string data);
+		/// <param name="tableName">The HBase table name.</param>
+		IEnumerable<Cell> ConvertCells(string data, string tableName);
 
 		/// <summary>
 		///    Converts the specified data to a table schema according to the current MIME type.

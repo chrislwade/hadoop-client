@@ -54,11 +54,11 @@ namespace _specs.Models
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<Cell> ConvertCells(string data)
+		public IEnumerable<Cell> ConvertCells(string data, string tableName)
 		{
 			if (_converter != null)
 			{
-				return _converter.ConvertCells(data);
+				return _converter.ConvertCells(data, tableName);
 			}
 
 			throw new NotImplementedException();

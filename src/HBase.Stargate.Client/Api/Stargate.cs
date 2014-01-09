@@ -176,7 +176,7 @@ namespace HBase.Stargate.Client.Api
 			IRestResponse response = await SendRequestAsync(Method.GET, resource, Options.ContentType);
 			_errorProvider.ThrowIfStatusMismatch(response, HttpStatusCode.OK, HttpStatusCode.NotFound);
 
-			return _converter.ConvertCells(response.Content)
+			return _converter.ConvertCells(response.Content, identifier.Table)
 				.Select(cell => cell.Value)
 				.FirstOrDefault();
 		}
@@ -194,7 +194,7 @@ namespace HBase.Stargate.Client.Api
 			IRestResponse response = SendRequest(Method.GET, resource, Options.ContentType);
 			_errorProvider.ThrowIfStatusMismatch(response, HttpStatusCode.OK, HttpStatusCode.NotFound);
 
-			return _converter.ConvertCells(response.Content)
+			return _converter.ConvertCells(response.Content, identifier.Table)
 				.Select(cell => cell.Value)
 				.FirstOrDefault();
 		}
@@ -215,7 +215,7 @@ namespace HBase.Stargate.Client.Api
 			};
 
 			if (response.StatusCode == HttpStatusCode.OK)
-				set.AddRange(_converter.ConvertCells(response.Content));
+				set.AddRange(_converter.ConvertCells(response.Content, query.Table));
 
 			return set;
 		}
@@ -236,7 +236,7 @@ namespace HBase.Stargate.Client.Api
 			};
 
 			if (response.StatusCode == HttpStatusCode.OK)
-				set.AddRange(_converter.ConvertCells(response.Content));
+				set.AddRange(_converter.ConvertCells(response.Content, query.Table));
 
 			return set;
 		}
@@ -347,7 +347,7 @@ namespace HBase.Stargate.Client.Api
 				.Select(header => header.Value.ToString())
 				.FirstOrDefault();
 
-			return string.IsNullOrEmpty(scannerLocation) ? null : new Scanner(new Uri(scannerLocation).PathAndQuery.Trim('/'), this);
+			return string.IsNullOrEmpty(scannerLocation) ? null : new Scanner(options.TableName, new Uri(scannerLocation).PathAndQuery.Trim('/'), this);
 		}
 
 		/// <summary>
@@ -363,7 +363,7 @@ namespace HBase.Stargate.Client.Api
 				.Select(header => header.Value.ToString())
 				.FirstOrDefault();
 
-			return string.IsNullOrEmpty(scannerLocation) ? null : new Scanner(new Uri(scannerLocation).PathAndQuery.Trim('/'), this);
+			return string.IsNullOrEmpty(scannerLocation) ? null : new Scanner(options.TableName, new Uri(scannerLocation).PathAndQuery.Trim('/'), this);
 		}
 
 		/// <summary>
@@ -394,7 +394,7 @@ namespace HBase.Stargate.Client.Api
 		{
 			var response = SendRequest(Method.GET, scanner.Resource, Options.ContentType);
 			_errorProvider.ThrowIfStatusMismatch(response, HttpStatusCode.OK, HttpStatusCode.NoContent);
-			return response.StatusCode == HttpStatusCode.NoContent ? null : new CellSet(_converter.ConvertCells(response.Content));
+			return response.StatusCode == HttpStatusCode.NoContent ? null : new CellSet(_converter.ConvertCells(response.Content, scanner.Table));
 		}
 
 		/// <summary>
@@ -405,7 +405,7 @@ namespace HBase.Stargate.Client.Api
 		{
 			var response = await SendRequestAsync(Method.GET, scanner.Resource, Options.ContentType);
 			_errorProvider.ThrowIfStatusMismatch(response, HttpStatusCode.OK, HttpStatusCode.NoContent);
-			return response.StatusCode == HttpStatusCode.NoContent ? null : new CellSet(_converter.ConvertCells(response.Content));
+			return response.StatusCode == HttpStatusCode.NoContent ? null : new CellSet(_converter.ConvertCells(response.Content, scanner.Table));
 		}
 
 		/// <summary>

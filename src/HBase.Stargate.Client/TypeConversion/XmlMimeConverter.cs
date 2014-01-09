@@ -123,13 +123,19 @@ namespace HBase.Stargate.Client.TypeConversion
 		///    Converts the specified data to a set of cells according to the current MIME type.
 		/// </summary>
 		/// <param name="data">The data.</param>
-		public virtual IEnumerable<Cell> ConvertCells(string data)
+		/// <param name="tableName">The HBase table name.</param>
+		public virtual IEnumerable<Cell> ConvertCells(string data, string tableName)
 		{
 			return string.IsNullOrEmpty(data)
 				? Enumerable.Empty<Cell>()
 				: XElement.Parse(data).Elements(_rowName)
 					.SelectMany(row => row.Elements(_cellName))
-					.Select(CellForXml);
+					.Select(CellForXml)
+					.Select(cell =>
+						{
+							cell.Identifier.Table = tableName;
+							return cell;
+						});
 		}
 
 		/// <summary>

@@ -44,13 +44,13 @@ namespace _specs.Steps.Serialization
 		[When(@"I convert my raw content to a set of cells")]
 		public void ConvertRawContentToCellSet()
 		{
-			_hBase.CellSet = new CellSet(_converter.ConvertCells(_hBase.RawContent));
+			_hBase.CellSet = new CellSet(_converter.ConvertCells(_hBase.RawContent, string.Empty));
 		}
 
 		[When(@"I convert my raw content to a cell")]
 		public void ConvertRawContentToCell()
 		{
-			IList<Cell> set = _converter.ConvertCells(_hBase.RawContent).ToList();
+			IList<Cell> set = _converter.ConvertCells(_hBase.RawContent, string.Empty).ToList();
 			set.Should().HaveCount(1);
 			_hBase.Cell = set[0];
 		}

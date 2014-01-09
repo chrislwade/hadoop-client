@@ -31,6 +31,14 @@ namespace HBase.Stargate.Client.Api
 	public interface IScanner : IEnumerable<CellSet>, IEnumerator<CellSet>
 	{
 		/// <summary>
+		///    Gets the table name.
+		/// </summary>
+		/// <value>
+		///    The table name.
+		/// </value>
+		string Table { get; }
+
+		/// <summary>
 		///    Gets the resource.
 		/// </summary>
 		/// <value>

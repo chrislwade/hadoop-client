@@ -51,10 +51,10 @@ namespace _specs.Steps
 			_context.CellSet = _context.Stargate.FindCells(_context.Query);
 		}
 
-		[When(@"I read all cells from any table")]
-		public void ReadTable()
+		[When(@"I read all cells from the ""(.*?)"" table")]
+		public void ReadTable(string tableName)
 		{
-			_context.CellSet = _context.Stargate.FindCells(new CellQuery { Table = "any-table" });
+			_context.CellSet = _context.Stargate.FindCells(new CellQuery { Table = tableName });
 		}
 		
 		[When(@"I read a result from the scanner")]

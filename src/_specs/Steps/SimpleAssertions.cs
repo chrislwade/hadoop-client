@@ -58,11 +58,23 @@ namespace _specs.Steps
 			_cells.CellSet.Should().HaveCount(count);
 		}
 
-		[Then(@"one of the cells in my set should have the following properties:")]
+		[Then(@"(?:one of )?the cells in my set should have the following properties:")]
 		public void CheckAnyCellInSet(Table values)
 		{
-			var testCell = values.CreateInstance<TestCell>();
-			_cells.CellSet.Any(cell => CellMatchesTestValue(cell, testCell)).Should().BeTrue();
+			values.CompareToSet(_cells.CellSet.Select(ConvertToTestCell));
+		}
+
+		public static TestCell ConvertToTestCell(Cell cell)
+		{
+			return new TestCell
+				{
+					Table = cell.Identifier.Table,
+					Row = cell.Identifier.Row,
+					Column = cell.Identifier.CellDescriptor.Column,
+					Qualifier = cell.Identifier.CellDescriptor.Qualifier,
+					Timestamp = cell.Identifier.Timestamp,
+					Value = cell.Value
+				};
 		}
 
 		private static bool CellMatchesTestValue(Cell cell, TestCell testCell)

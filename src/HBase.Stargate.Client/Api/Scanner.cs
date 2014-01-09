@@ -40,14 +40,24 @@ namespace HBase.Stargate.Client.Api
 		/// <summary>
 		///    Initializes a new instance of the <see cref="Scanner" /> class.
 		/// </summary>
+		/// <param name="tableName">The HBase table name.</param>
 		/// <param name="resource">The resource.</param>
 		/// <param name="stargate">The current Stargate.</param>
-		public Scanner(string resource, IStargate stargate)
+		public Scanner(string tableName, string resource, IStargate stargate)
 		{
 			_cachedResults = new List<CellSet>();
 			_stargate = stargate;
+			Table = tableName;
 			Resource = resource;
 		}
+
+		/// <summary>
+		///    Gets the table name.
+		/// </summary>
+		/// <value>
+		///    The table name.
+		/// </value>
+		public string Table { get; private set; }
 
 		/// <summary>
 		///    Gets the resource.
