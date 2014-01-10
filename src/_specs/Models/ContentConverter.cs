@@ -93,7 +93,7 @@ namespace _specs.Models
 		public void SetConversionToJson()
 		{
 			MimeType = HBaseMimeTypes.Json;
-			//TODO: _converter = new JsonMimeConverter();
+			_converter = new JsonMimeConverter(new SimpleValueConverter(), new Base64Codec());
 		}
 
 		public void SetConversionToProtobuf()

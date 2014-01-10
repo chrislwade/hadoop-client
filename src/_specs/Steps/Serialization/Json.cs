@@ -15,6 +15,10 @@
 // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+using System.Web.Script.Serialization;
+
+using FluentAssertions;
+
 using TechTalk.SpecFlow;
 
 using _specs.Models;
@@ -24,26 +28,33 @@ namespace _specs.Steps.Serialization
 	[Binding]
 	public class Json
 	{
+		private readonly HBaseContext _hBase;
+		private readonly ResourceContext _resources;
 		private readonly ContentConverter _converter;
+		private readonly JavaScriptSerializer _serializer;
 
-		public Json(ContentConverter converter)
+		public Json(HBaseContext hbase, ResourceContext resources, ContentConverter converter)
 		{
+			_hBase = hbase;
+			_resources = resources;
 			_converter = converter;
-		}
-
-		[Then(@"my raw JSON content should be equivalent to the resource called ""(.*)""")]
-		public void CompareJsonToResource(string resourceName)
-		{
-			ScenarioContext.Current.Pending();
+			// TODO: ask John about how to inject this?
+			_serializer = new JavaScriptSerializer();
 		}
 
 		[Given(@"I have everything I need to test a content converter for JSON")]
 		public void SetConversionToJson()
 		{
 			_converter.SetConversionToJson();
+		}
 
-			//TODO: remove the next line once JSON is plugged in
-			ScenarioContext.Current.Pending();
+		[Then(@"my raw JSON content should be equivalent to the resource called ""(.*)""")]
+		public void CompareJsonToResource(string resourceName)
+		{
+			var left = _serializer.DeserializeObject(_hBase.RawContent);
+			var right = _serializer.DeserializeObject(_resources.GetString(resourceName));
+
+			left.Should().Be(right);
 		}
 	}
 }
