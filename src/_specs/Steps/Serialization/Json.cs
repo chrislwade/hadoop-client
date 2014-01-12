@@ -15,6 +15,7 @@
 // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+using System.Collections.Generic;
 using System.Web.Script.Serialization;
 
 using FluentAssertions;
@@ -51,10 +52,10 @@ namespace _specs.Steps.Serialization
 		[Then(@"my raw JSON content should be equivalent to the resource called ""(.*)""")]
 		public void CompareJsonToResource(string resourceName)
 		{
-			var left = _serializer.DeserializeObject(_hBase.RawContent);
-			var right = _serializer.DeserializeObject(_resources.GetString(resourceName));
+			var actual = _serializer.Deserialize<Dictionary<string, object>>(_hBase.RawContent);
+			var expected = _serializer.Deserialize<Dictionary<string, object>>(_resources.GetString(resourceName));
 
-			left.Should().Be(right);
+			actual.ShouldBeEquivalentTo(expected);
 		}
 	}
 }

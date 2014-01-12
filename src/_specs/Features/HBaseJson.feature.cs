@@ -144,56 +144,29 @@ this.FeatureBackground();
                         "",
                         "",
                         "hello world"});
+            table1.AddRow(new string[] {
+                        "1",
+                        "alpha",
+                        "x",
+                        "",
+                        "hello world"});
+            table1.AddRow(new string[] {
+                        "1",
+                        "alpha",
+                        "",
+                        "4",
+                        "hello world"});
+            table1.AddRow(new string[] {
+                        "1",
+                        "alpha",
+                        "x",
+                        "4",
+                        "hello world"});
 #line 33
  testRunner.And("I have added a cell to my set with the following properties:", ((string)(null)), table1, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "row",
-                        "column",
-                        "qualifier",
-                        "timestamp",
-                        "value"});
-            table2.AddRow(new string[] {
-                        "1",
-                        "alpha",
-                        "x",
-                        "",
-                        "hello world"});
-#line 36
- testRunner.And("I have added a cell to my set with the following properties:", ((string)(null)), table2, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "row",
-                        "column",
-                        "qualifier",
-                        "timestamp",
-                        "value"});
-            table3.AddRow(new string[] {
-                        "1",
-                        "alpha",
-                        "",
-                        "4",
-                        "hello world"});
 #line 39
- testRunner.And("I have added a cell to my set with the following properties:", ((string)(null)), table3, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "row",
-                        "column",
-                        "qualifier",
-                        "timestamp",
-                        "value"});
-            table4.AddRow(new string[] {
-                        "1",
-                        "alpha",
-                        "x",
-                        "4",
-                        "hello world"});
-#line 42
- testRunner.And("I have added a cell to my set with the following properties:", ((string)(null)), table4, "And ");
-#line 45
  testRunner.When("I convert my set of cells to raw content", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
+#line 40
  testRunner.Then("my raw JSON content should be equivalent to the resource called \"HBaseJson_Set_He" +
                     "lloWorld\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -205,76 +178,49 @@ this.FeatureBackground();
         public virtual void ParseJSONForASetOfCells()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Parse JSON for a set of cells", ((string[])(null)));
-#line 48
+#line 42
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 49
+#line 43
  testRunner.Given("I have raw content equal to the resource called \"HBaseJson_Set_HelloWorld\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 50
+#line 44
  testRunner.When("I convert my raw content to a set of cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 51
+#line 45
  testRunner.Then("my set should contain 4 cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "row",
                         "column",
                         "qualifier",
                         "timestamp",
                         "value"});
-            table5.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "1",
                         "alpha",
                         "",
                         "",
                         "hello world"});
-#line 52
- testRunner.And("one of the cells in my set should have the following properties:", ((string)(null)), table5, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "row",
-                        "column",
-                        "qualifier",
-                        "timestamp",
-                        "value"});
-            table6.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "1",
                         "alpha",
                         "x",
                         "",
                         "hello world"});
-#line 55
- testRunner.And("one of the cells in my set should have the following properties:", ((string)(null)), table6, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "row",
-                        "column",
-                        "qualifier",
-                        "timestamp",
-                        "value"});
-            table7.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "1",
                         "alpha",
                         "",
                         "4",
                         "hello world"});
-#line 58
- testRunner.And("one of the cells in my set should have the following properties:", ((string)(null)), table7, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                        "row",
-                        "column",
-                        "qualifier",
-                        "timestamp",
-                        "value"});
-            table8.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "1",
                         "alpha",
                         "x",
                         "4",
                         "hello world"});
-#line 61
- testRunner.And("one of the cells in my set should have the following properties:", ((string)(null)), table8, "And ");
+#line 46
+ testRunner.And("one of the cells in my set should have the following properties:", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

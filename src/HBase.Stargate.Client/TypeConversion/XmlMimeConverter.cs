@@ -107,16 +107,7 @@ namespace HBase.Stargate.Client.TypeConversion
 		/// <param name="cell"></param>
 		public virtual string ConvertCell(Cell cell)
 		{
-			string row = cell.Identifier != null ? cell.Identifier.Row : null;
-			XElement xml = XmlForCellSet(new[]
-			{
-				XmlForRow(row, new[]
-				{
-					XmlForCell(cell)
-				})
-			});
-
-			return xml.ToString();
+			return ConvertCells(new List<Cell> {cell});
 		}
 
 		/// <summary>

@@ -33,14 +33,8 @@ Scenario: Create JSON for a set of cells
 	And I have added a cell to my set with the following properties:
 		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  |           |           | hello world |
-	And I have added a cell to my set with the following properties:
-		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  | x         |           | hello world |
-	And I have added a cell to my set with the following properties:
-		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  |           | 4         | hello world |
-	And I have added a cell to my set with the following properties:
-		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  | x         | 4         | hello world |
 	When I convert my set of cells to raw content
 	Then my raw JSON content should be equivalent to the resource called "HBaseJson_Set_HelloWorld"
@@ -52,12 +46,6 @@ Scenario: Parse JSON for a set of cells
 	And one of the cells in my set should have the following properties:
 		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  |           |           | hello world |
-	And one of the cells in my set should have the following properties:
-		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  | x         |           | hello world |
-	And one of the cells in my set should have the following properties:
-		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  |           | 4         | hello world |
-	And one of the cells in my set should have the following properties:
-		| row | column | qualifier | timestamp | value       |
 		| 1   | alpha  | x         | 4         | hello world |
