@@ -104,7 +104,7 @@
     <Compile Include="TypeConversion\IScannerOptionsConverter.cs" />
     <Compile Include="TypeConversion\ISimpleValueConverter.cs" />
     <Compile Include="TypeConversion\JsonMimeConverter.cs" />
-    <Compile Include="TypeConversion\MImeConverterFactory.cs" />
+    <Compile Include="TypeConversion\MimeConverterFactory.cs" />
     <Compile Include="TypeConversion\ScannerOptionsConverter.cs" />
     <Compile Include="TypeConversion\SimpleValueConverter.cs" />
     <Compile Include="TypeConversion\XmlMimeConverter.cs" />

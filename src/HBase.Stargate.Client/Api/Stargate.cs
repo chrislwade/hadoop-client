@@ -428,9 +428,10 @@ namespace HBase.Stargate.Client.Api
 			var resourceBuilder = new ResourceBuilder(options);
 			var restSharp = new RestSharpFactory(url => new RestClient(url), (resource, method) => new RestRequest(resource, method));
 			var codec = new Base64Codec();
-			var mimeConverters = new MimeConverterFactory(new[]
+			var mimeConverters = new MimeConverterFactory(new List<IMimeConverter>
 			{
-				new XmlMimeConverter(new SimpleValueConverter(), codec)
+				new XmlMimeConverter(new SimpleValueConverter(), codec),
+				new JsonMimeConverter(new SimpleValueConverter(), codec)
 			});
 			var errors = new ErrorProvider();
 			var scannerConverter = new ScannerOptionsConverter(codec);
